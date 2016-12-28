@@ -1,0 +1,36 @@
+body {
+    font-family: cursive;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.home-header {
+  height: 530px;
+  background-image: url('../images/coffee.jpg');
+  background-size: cover;
+  background-position-y: -150px;
+}
+
+.home-title {
+  font-size: 200px;
+  color: #ffffff;
+  opacity: 0.9;
+  margin-left: 200px;
+  margin-top: 150px;
+}
+
+.home-description {
+  padding-top: 25px;
+  font-size: 20px;
+}
+
+.coffee-img {
+  width: 100px;
+}
+
+.thumbnail {
+  height: 475px;
+  font-family: helvetica;
+}
