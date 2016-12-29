@@ -13,13 +13,13 @@ router.get('/about', (req, res, next) => {
 
 
 // Helper function to check if user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next(); // continue
-  }
-  // store the old url so that when the user signs in, they get redirected to the route they were on initially
-  req.session.oldUrl = req.url;
-  res.redirect('/user/signin');
-}
+// function isLoggedIn(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     return next(); // continue
+//   }
+//   // store the old url so that when the user signs in, they get redirected to the route they were on initially
+//   req.session.oldUrl = req.url;
+//   res.redirect('/user/signin');
+// }
 
 module.exports = router;

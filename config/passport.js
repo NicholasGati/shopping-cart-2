@@ -48,6 +48,7 @@ passport.use("local.signup", new LocalStrategy({
     const newUser = new User();
     newUser.email = email;
     newUser.password = newUser.encryptPassword(password);
+
     newUser.save((err, result) => {
       if (err) {
         return done(err);
@@ -62,10 +63,10 @@ passport.use("local.signin", new LocalStrategy({
   usernameField: "email",
   passwordField: "password",
   passReqToCallback: true
-}, (req, res, next) => {
+}, (req, email, password, done) => {
   //Validate
   req.checkBody("email", "Invalid Email").notEmpty().isEmail();
-  req.checkBody("password", "Invalid Password").notEmpty().isLength({min: 4});
+  req.checkBody("password", "Invalid Password").notEmpty();
   const errors = req.validationErrors();
 
   // If there are errors

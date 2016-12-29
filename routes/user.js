@@ -19,7 +19,7 @@ router.get("/logout", isLoggedIn, (req, res, next) => {
   res.redirect("/");
 });
 
-router.get('/', isNotLoggedIn, (req, res, next) => {
+router.use('/', isNotLoggedIn, (req, res, next) => {
   next();
 });
 // END USER IS OR ISNT LOGGED IN
@@ -48,6 +48,19 @@ router.post("/signup", passport.authenticate("local.signup", {
 router.get("/signin", (req, res, next) => {
   const messages = req.flash("error");
   res.render("user/signin", {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
+router.post("/signin", passport.authenticate("local.signin", {
+  failureRedirect: "/user/signin",
+  failureFlash: true
+}), (req, res, next) => {
+  if (req.session.oldUrl) {
+    const oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  } else {
+    res.redirect("/user/profile");
+  }
 });
 
 // Helper functions

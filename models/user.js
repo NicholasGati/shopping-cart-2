@@ -8,12 +8,12 @@ const UserSchema = new Schema({
 });
 
 // Encrypt password
-UserSchema.methods.encryptPassword = (password) => {
+UserSchema.methods.encryptPassword = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
 }
 
 // Validate password for signing in
-UserSchema.methods.validPassword = (password) => {
+UserSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 
