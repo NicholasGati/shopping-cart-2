@@ -34,3 +34,13 @@ body {
   height: 475px;
   font-family: helvetica;
 }
+
+.no-items {
+  font-family: helvetica;
+  color: #ccc;
+  margin-top: 200px;
+}
+
+.fix-li {
+  min-height: 50px;
+}

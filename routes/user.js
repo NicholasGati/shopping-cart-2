@@ -7,10 +7,28 @@ const passport = require("passport");
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
+// Import all necessary models
+const Order = require("../models/order");
+const Cart = require("../models/cart");
+
 // USER IS OR ISNT LOGGED IN GOES UP here
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
-  res.render("user/profile");
+  // req contains the user. Find orders by user id
+  Order.find({user: req.user}, (err, orders) => {
+    if (err) {
+      res.redirect("/shop/coffee");
+
+    }
+
+    let cart;
+    orders.forEach((order) => {
+      cart = new Cart(order.cart);
+      order.items = cart.generateArray();
+    });
+
+    res.render("user/profile", {user: req.user, orders: orders});
+  });
 });
 
 // Log the user out

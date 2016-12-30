@@ -1,0 +1,71 @@
+{{# if products }}
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>My Cart</h2>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-12">
+      <div class="col-md-2">
+        <p><strong>Quantity</strong></p>
+      </div>
+
+      <div class="col-md-7">
+        <p><strong>Product</strong></p>
+      </div>
+
+      <div class="col-md-2">
+        <p><strong>Actions</strong></p>
+      </div>
+
+      <div class="col-md-1">
+        <p><strong>Price</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <ul class="list-group">
+      {{# each products }}
+        <li class="list-group-item fix-li">
+          <div class="col-md-12">
+            <div class="col-md-2">
+              <div class="badge">{{ this.qty }}</div>
+            </div>
+
+            <div class="col-md-7">
+              <strong>{{ this.item.name }}</strong>
+            </div>
+
+            <div class="col-md-2">
+              <button type="button" name="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+                Action <span class="caret"></span>
+              </button>
+            </div>
+
+            <div class="col-md-1">
+              <span class="label label-success">${{ this.item.price }}</span>
+            </div>
+          </div>
+        </li>
+      {{/each }}
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+    <hr />
+    <a  href="/shop/checkout" type="button" name="button" class="btn btn-success pull-left">Checkout</a>
+    <h4 class="pull-right"><strong>Total: ${{ totalPrice }}</strong></h4>
+  </div>
+</div>
+
+{{ else }}
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h3 class="no-items">There are no items in your cart.</h3>
+  </div>
+</div>
+{{/if}}

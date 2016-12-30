@@ -1,5 +1,61 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>User Profile</h1>
+    <h4>Welcome {{ user.email }}!</h4>
   </div>
+
+  {{# if orders }}
+    <div class="col-md-12 text-center">
+      <h2>My Orders</h2>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+      <div class="col-md-12">
+        <div class="col-md-2">
+          <p><strong>Quantity</strong></p>
+        </div>
+
+        <div class="col-md-9">
+          <p><strong>Product</strong></p>
+        </div>
+
+        <div class="col-md-1">
+          <p><strong>Price</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+      {{# each orders }}
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul class="list-group">
+              {{# each this.items }}
+              <li class="list-group-item fix-li">
+                <div class="col-md-12">
+                  <div class="col-md-2">
+                    <span class="badge">{{ this.qty }}</span>
+                  </div>
+                  <div class="col-md-9">
+                    <strong>{{ this.item.name }}</strong>
+                  </div>
+                  <div class="col-md-1">
+                    <span class="label label-success">${{ this.item.price }}</span>
+                  </div>
+                </div>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+
+          <div class="panel-footer">
+            <strong>Total: ${{ this.cart.totalPrice }}</strong>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="col-md-12 text-center">
+      <h3 class="no-items">You have not placed any orders yet.</h3>
+    </div>
+  {{/if}}
 </div>
