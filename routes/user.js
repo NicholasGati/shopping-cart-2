@@ -42,10 +42,10 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 });
 
 router.get('/edit', isLoggedIn, (req, res, next) => {
-  res.render("user/edit", {user: req.user});
+  res.render("user/edit", {user: req.user, csrfToken: req.csrfToken()});
 });
 
-router.delete('/:id', isLoggedIn, (req, res, next) => {
+router.post('/:id/delete', isLoggedIn, (req, res, next) => {
   User.findOneAndRemove({_id: req.params.id}, (err) => {
     if (err) {
       req.flash("error", err);

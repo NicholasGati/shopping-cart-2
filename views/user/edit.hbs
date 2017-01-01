@@ -4,8 +4,9 @@
       <h2>DANGER:</h2>
       <h4>Deleting your account will remove you from our database! <br/>Your profile will not be saved!</h4>
 
-      <form action="/user/{{user.id}}" method="delete">
+      <form action="/user/{{user.id}}/delete" method="post">
         <div class="form-group">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
           <button type="submit" class="btn btn-danger">Delete Account</button>
         </div>
       </form>
