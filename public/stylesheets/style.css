@@ -69,3 +69,11 @@ a {
 .fix-li {
   min-height: 50px;
 }
+
+.edit-area {
+  margin-top: 200px;
+}
+
+.edit-area h4, .edit-area h2 {
+  color: red;
+}

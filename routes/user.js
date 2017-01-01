@@ -17,8 +17,7 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
   // req contains the user. Find orders by user id
   Order.find({user: req.user}, (err, orders) => {
     if (err) {
-      res.redirect("/shop/coffee");
-
+      return res.redirect("/shop/coffee");
     }
 
     let cart;
@@ -31,6 +30,22 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
   });
 });
 
+router.get('/edit', isLoggedIn, (req, res, next) => {
+  res.render("user/edit");
+});
+
+router.delete('/delete', isLoggedIn, (req, res, next) => {
+  User.findOneAndRemove({'_id': req.user.id}, (err, user) => {
+    if (err) {
+      req.flash("error", err);
+      return res.redirect("/user/edit");
+    }
+    req.flash("success", "User deleted!");
+    req.logout();
+    res.redirect("/");
+  });
+});
+
 // Log the user out
 router.get("/logout", isLoggedIn, (req, res, next) => {
   req.logout();
@@ -40,6 +55,7 @@ router.get("/logout", isLoggedIn, (req, res, next) => {
 router.use('/', isNotLoggedIn, (req, res, next) => {
   next();
 });
+
 // END USER IS OR ISNT LOGGED IN
 
 // Access to User signup page
