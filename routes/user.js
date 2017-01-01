@@ -10,8 +10,19 @@ router.use(csrfProtection);
 // Import all necessary models
 const Order = require("../models/order");
 const Cart = require("../models/cart");
+const User = require("../models/user");
 
 // USER IS OR ISNT LOGGED IN GOES UP here
+
+router.get("/all", (req, res, next) => {
+  User.find({}, (err, users) => {
+    let userMap = {};
+    users.forEach((user) => {
+      userMap[user.id] = { email: user.email, _id: user.id };
+    });
+    res.send(userMap);
+  });
+});
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   // req contains the user. Find orders by user id
@@ -31,18 +42,19 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 });
 
 router.get('/edit', isLoggedIn, (req, res, next) => {
-  res.render("user/edit");
+  res.render("user/edit", {user: req.user});
 });
 
-router.delete('/delete', isLoggedIn, (req, res, next) => {
-  User.findOneAndRemove({'_id': req.user.id}, (err, user) => {
+router.delete('/:id', isLoggedIn, (req, res, next) => {
+  User.findOneAndRemove({_id: req.params.id}, (err) => {
     if (err) {
       req.flash("error", err);
       return res.redirect("/user/edit");
     }
-    req.flash("success", "User deleted!");
+
+    req.flash("success", "Your account has been deleted.");
     req.logout();
-    res.redirect("/");
+    return res.redirect("/shop/coffee");
   });
 });
 
